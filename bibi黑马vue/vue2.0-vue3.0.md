@@ -1,16 +1,17 @@
-bibi地址：https://www.bilibili.com/video/BV1zq4y1p7ga/
+bibi 地址：https://www.bilibili.com/video/BV1zq4y1p7ga/
 
-# Vue基础-00 课程介绍
+# Vue 基础-00 课程介绍
 
 ## 使用人群
 
-- 对Vue框架**感兴趣**
+- 对 Vue 框架**感兴趣**
 - 前端在职，**有进一步提升需求**
 - 希望**快速入门 Vue 开发**的相关人员
 
 ## 前置储备
 
 - 必要前提：
+
   - HTML + CSS + JavaScript
   - WebAPI (DOM + BOM)
   - Ajax
@@ -39,7 +40,7 @@ bibi地址：https://www.bilibili.com/video/BV1zq4y1p7ga/
 **目标：**
 
 - 能够使用 Vue 的指令完成页面结构的渲染
-- 能够使用 Vue 的调试工具辅助Vue的开发
+- 能够使用 Vue 的调试工具辅助 Vue 的开发
 
 ## 第三天：Vue 基础入门-part2
 
@@ -51,7 +52,7 @@ bibi地址：https://www.bilibili.com/video/BV1zq4y1p7ga/
 **目标：**
 
 - 能够在实际开发中合理运用过滤器，侦听器，计算属性解决自己遇到的问题
-- 能够使用 axios 发起Ajax请求
+- 能够使用 axios 发起 Ajax 请求
 - 能够使用 vue-cli 工具生成工程化的 Vue 项目
 
 ## 第四天：组件与生命周期
@@ -78,9 +79,9 @@ bibi地址：https://www.bilibili.com/video/BV1zq4y1p7ga/
 
 - 能够使用 ref 获取页面上 DOM 或组件的引用
 - 能够知道 $nextTick 的应用场景并合理地使用
-- 通过 “购物车案例”巩固前4天所有学的知识
+- 通过 “购物车案例”巩固前 4 天所有学的知识
 
-## 第六天：Vue组件的高级用法
+## 第六天：Vue 组件的高级用法
 
 - 动态组件的使用
 - 插槽的使用（默认插槽，具名插槽，作用域插槽）
@@ -124,9 +125,11 @@ bibi地址：https://www.bilibili.com/video/BV1zq4y1p7ga/
 ## webpack 的学习目标
 
 - 理解什么是前端工程化
+
   - 转变对前端开发的认知
 
 - 了解 webpack 的基本用法
+
   - 为后面 Vue 和 React 课程的学习做技术储备
 
 - 不强求要求大家能手动配置 webpack
@@ -146,7 +149,7 @@ bibi地址：https://www.bilibili.com/video/BV1zq4y1p7ga/
 
 **实际的前端开发：**
 
-- **工程化**（js的模块化，css的模块化，资源的模块化）
+- **工程化**（js 的模块化，css 的模块化，资源的模块化）
 - **组件化**（复现现有的 UI 结构，样式，行为）
 - **规范化**（目录结构的划分，编程规范化，接口规范化，文档规范化，Git 分支管理）
 - **自动化**（自动化构建，自动部署，自动化测试）
@@ -177,7 +180,7 @@ bibi地址：https://www.bilibili.com/video/BV1zq4y1p7ga/
 
 概念：webpack 是**前端工程化的具体解决方案**
 
-主要功能：它提供了友好的**前端模块化开发**支持，以及**代码压缩混淆**，**处理浏览器端 JavaScript的兼容性**，**性能优化**等强大的功能
+主要功能：它提供了友好的**前端模块化开发**支持，以及**代码压缩混淆**，**处理浏览器端 JavaScript 的兼容性**，**性能优化**等强大的功能
 
 好处：让程序员把**工作的重心**放到具体功能的实现上，提高了前端**开发效率**和项目的**可维护性**。
 
@@ -189,7 +192,7 @@ bibi地址：https://www.bilibili.com/video/BV1zq4y1p7ga/
 - 新建 src 源代码目录
 - 新建 src -> index.html 首页和 src -> index.js 脚本文件
 - 初始化首页基本得结构
-- 运行 npm install jquery -S 命令，安装 JQuery 
+- 运行 npm install jquery -S 命令，安装 JQuery
 - 通过 ES6 模块化得方式导入 JQuery ，实现列表隔行变色效果
 
 # Vue 2.0-05 webpack 基础-安装和配置 webpack
@@ -199,3 +202,52 @@ bibi地址：https://www.bilibili.com/video/BV1zq4y1p7ga/
 在终端运行如下的命令，安装 webpack 相关的两个包：
 
 npm install webpack@5.42.1 webpack-cli@4.7.2 -D
+
+-S 是 --save 的简写
+
+-D 是 --save-dev 的简写
+
+## 4. 在项目中配置 webpack
+
+（1）在项目根目录中，创建名为 **webpack.config.js** 的 webpack 配置文件，并初始化如下的基本配置：
+
+```
+// 使用 Node.js 中的导出语法，向外导出一个 webpack 的配置对象
+module.exports = {
+  mode: 'development',  // mode 用来指定构建模式，可选值有 development 和 production
+}
+```
+
+（2）在 package.json 的 scripts 节点下，新增 **dev 脚本**如下：
+
+```
+  "scripts": {
+    "dev": "webpack" // scripts 节点下的脚本，可以通过 npm run 执行，例如 npm run dev
+  },
+```
+
+（3）在终端中运行 npm run dev 命令，启动 webpack 进行项目的打包构建
+
+# Vue 2.0-06 webpack 基础-了解 mode 可选值的应用场景
+
+## 4.1 mode 的可选值
+
+mode节点的可选值有两个，分别是：
+
+- **development**
+  - **开发环境**
+  - **不会**对打包生成的文件进行**代码压缩**和**性能优化**
+  - 打包**速度快**，适合在**开发阶段**使用
+
+- **production**
+  - **生产环境**
+  - **会**对打包生成的文件进行**代码压缩**和**性能优化**
+  - 打包**速度慢**，仅适合在项目**发布阶段**使用
+
+# Vue 2.0-07 指定 webpack 的 entry 和 output
+
+## 4.2 webpack.config.js 文件的作用
+
+webpack.config.js 是 webpack 的配置文件。webpack 在真正开始打包构建之前，会**先读取这个配置文件**，从而基于给定的配置，对项目进行打包
+
+注意：由于 webpack 是**基于 node.js 开发出来**的打包工具，因此在它的配置文件中，支持使用 node.js 相关的语法和模块进行 webpack 的个性化配置。
