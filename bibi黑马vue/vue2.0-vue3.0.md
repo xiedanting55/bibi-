@@ -251,3 +251,135 @@ mode节点的可选值有两个，分别是：
 webpack.config.js 是 webpack 的配置文件。webpack 在真正开始打包构建之前，会**先读取这个配置文件**，从而基于给定的配置，对项目进行打包
 
 注意：由于 webpack 是**基于 node.js 开发出来**的打包工具，因此在它的配置文件中，支持使用 node.js 相关的语法和模块进行 webpack 的个性化配置。
+
+## 4.3 webpack 中的默认约定
+
+在 webpack 4.x 和 5.x 的版本中，有如下的默认约定：
+
+- 默认的打包入口文件为 **src** -> **index.js**
+- 默认的输出文件路径为 **dist** -> **main.js**
+
+注意：可以在 **webpack.config.js** 中修改打包的默认约定
+
+## 4.4 自定义打包的入口与出口
+
+在 webpack.config.js 配置文件中，通过 **entry 节点**指定**打包的入口**。通过 **output 节点**指定**打包的出口**。
+
+示例代码如下：
+
+```
+const path = require('path')  //导入 node.js 中专门操作路径的模块
+
+// 使用 Node.js 中的导出语法，向外导出一个 webpack 的配置对象
+module.exports = {
+  entry: path.join(__dirname, './src/index.js'),  //打包入口文件的路径
+  output: {
+    path: path.join(__dirname, './dist'),  // 输出文件的存放路径
+    filename: 'bundle.js',  // 输出文件名称
+  }
+}
+```
+
+# Vue 2.0-08 插件 安装和配置webpack-dev-server 这个插件
+
+## 1. webpack 插件的作用
+
+通过安装和配置第三方的插件：可以**拓展 webpack 的能力**，从而让 webpack **用起来更方便**。最常用的 webpack 插件有如下两个：
+
+- **webpack-dev-server**
+  - 类似于 node.js 阶段用到的 nodemon 工具
+  - 每当修改了源代码， webpack 会自动进行项目的打包和构建
+
+
+- **html-webpack-plugin**
+  - webpack 中的 HTML 插件（类似于一个模版引擎插件）
+  - 可以通过此插件自定制 index.html 页面的内容
+
+## 2.1 安装 webpack-dev-server
+
+运行如下的命令，即可在项目中安装此插件：
+
+npm install webpack-dev-server@3.11.2 -D
+
+## 2.2 配置 webpack-dev-server
+
+- 修改 **package.json** -> **scripts** 中的 **dev** 命令如下：
+
+```
+"scripts": {
+    "dev": "webpack serve",  // script节点下的脚本，可以通过 npm run 执行
+  },
+```
+
+- 再次运行 **npm run dev** 命令，重新进行项目的打包
+- 在浏览器中访问 **http://localhost:8080** 地址，查看自动打包效果
+
+注意：webpack-dev-server 会启动一个**实时打包的 http 服务器**
+
+# Vue 2.0-09 插件 介绍 webpack-dev-server 的工作原理
+
+# Vue 2.0-10 插件 安装和配置 html-webpack-plugin 这个插件
+
+## 3.1 安装 html-webpack-plugin
+
+运行如下的命令，即可在项目中安装此插件
+
+npm install html-webpack-plugin@5.3.2 -D
+
+## 3.2 配置 html-webpack-plugin
+
+```
+// 1. 导入 HTML 插件，得到一个构造函数
+const HtmlPlugin = require('html-webpack-plugin')
+
+// 2. 创建 HTML 插件的实例对象
+const htmlPlugin = new HtmlPlugin({
+  template: './src/index.html',  // 指定原文件的存放路径
+  filename: './index.html',  // 指定生成的文件的存放路径
+})
+
+module.exports = {
+  mode: 'development',
+  plugins: [htmlPlugin],  // 3. 通过 plugins 节点，使 htmlPlugin 插件生效
+}
+```
+
+# Vue 2.0-11 插件 了解 html-webpack-plugin 插件的特性
+
+## 3.3 解惑 html-webpack-plugin
+
+- 通过 HTML 插件复制到项目根目录的 index.html 页面，**也被放到了内存中**
+- HTML 插件在生成的 index.html **页面**，**自动注入**了打包的 bundle.js 文件
+
+# Vue 2.0-12 插件 了解 devServer 中常用的选项
+
+## 4. devServer 节点
+
+在 webpack.config.js 配置文件中，可以通过 **devServer** 节点对 webpack-dev-server 插件进行更多的配置，示例代码如下：
+
+```
+devServer: {
+    open: true,  // 初次打包完成后，自动打开浏览器
+    host: '127.0.0.1',  // 实时打包所使用的主机地址
+    // 在 http 协议中，如果端口号是80，则可以被省略
+    port: 3000,  // 实时打包所使用的端口号
+  }
+```
+
+注意：凡事修改了 webpack.config.js 配置文件，或修改了 package.json 配置文件，**必须重启实时打包的服务器**，否则最新的配置文件无法生效！
+
+# Vue 2.0-13 loader 说明 loader的作用
+
+## 1. loader 概述
+
+在实际开发过程中， webpack 默认只能打包处理以 .js 后缀名结尾的模块。其他**非 .js 后缀名结尾的模块**，webpack 默认处理不了，**需要调用loader 加载器才可以正常打包**，否则会报错！
+
+loader 加载器的作用： **协助 webpack 打包处理特定的文件模块**。比如：
+
+- css-loader 可以打包处理 .css 相关的文件
+- less-loader 可以打包处理 .less 相关的文件
+- babel-loader 可以打包处理 webpack 无法处理的高级 JS 语法
+
+## 2. loader 的调用过程
+
+![loader调用过程](./image/loader调用过程.png)
