@@ -383,3 +383,23 @@ loader 加载器的作用： **协助 webpack 打包处理特定的文件模块*
 ## 2. loader 的调用过程
 
 ![loader调用过程](./image/loader调用过程.png)
+
+## 3. 打包处理 css 文件
+
+- 运行 **npm i style-loader@3.0.0 css-loader@5.2.6 -D** 命令，安装处理 css 文件的 loader
+- 在 webpack.config.js 的 **module** -> **rules** 数组中，添加 loader 规则如下：
+
+```
+module: {  //所有第三方文件模块的匹配规则
+  rules: [  //文件后缀名的匹配规则
+    {test: /\.css$/, use: ['style-loader', 'css-loader']}
+  ]
+}
+```
+
+其实， **test** 表示匹配的**文件类型**，**use** 表示对应**要调用的 loader**
+
+注意：
+
+- use 数组中指定的 loader **顺序是固定的**
+- 多个 loader 的调用顺序是：**从后往前调用**
