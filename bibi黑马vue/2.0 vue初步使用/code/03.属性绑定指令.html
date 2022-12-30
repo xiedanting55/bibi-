@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>03.属性绑定指令</title>
+</head>
+
+<body>
+  <div id="app">
+    <input type="text" v-bind:placeholder="tips">
+    <hr>
+    <img :src="photo" alt="">
+    <hr>
+
+    <p>{{number+1}}</p>
+    <p>{{ok ? 'YES' : 'NO'}}</p>
+    <p>{{message.split('').reverse().join('')}}</p>
+    <div :id="'list-'+id"></div>
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data () {
+        return {
+          tips: '请输入用户名',
+          photo: 'https://fanyi-cdn.cdn.bcebos.com/static/translation/img/header/logo_e835568.png',
+          number: 1,
+          ok: true,
+          message: 'Hello World',
+          id: 1
+        }
+      },
+    }); 
+  </script>
+</body>
+
+</html>

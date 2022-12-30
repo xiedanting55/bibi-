@@ -688,6 +688,8 @@ module.exports = {
 
 ![vue01](.\image\vue01.png)
 
+##### 解释
+
 - **构建用户界面**
   - 用 vue 往 html 页面中填充数据，非常的方便
 
@@ -705,7 +707,7 @@ vue 框架的特性，主要体现在如下两个方面：
 
 ## 02 简介-vue 的两个特性
 
-### 2.1 数据驱动视图
+#### 2.1 数据驱动视图
 
 在使用了 vue 的页面中，vue 会**监听数据的变化**，从而**自动**重新渲染页面的结构，示意图如下：
 
@@ -713,3 +715,326 @@ vue 框架的特性，主要体现在如下两个方面：
 
 - 好处：当页面数据发生变化时，页面会自动重新渲染！
 - 注意：数据驱动视图是**单向的数据绑定**。
+
+#### 2.2 双向数据绑定
+
+在**填写表单**时，双向数据绑定可以辅助开发者在**不操作 DOM 的前提下，自动**把用户填写的内容**同步到**数据源中。示意图如下：
+
+![vue2-2.2](.\image\vue2-2.2.png)
+
+- 好处：开发者不再需要手动操作 DOM 元素，来获取表单元素最新的值！
+
+##### 解释
+
+- **数据驱动视图**
+
+  - 数据的变化**会驱动视图**自动更新
+  - 好处：程序员只管把数据维护好，那么页面结构会被 vue 自动渲染出来！
+
+- **双向数据绑定**
+
+  > 在网页中，from 表单负责**采集数据**，Ajax 负责**提交数据**
+
+  - js 数据的变化，会被自动渲染到页面上
+  - 页面上表单采用的数据发生变化的时候，会被 vue 自动获取到，并更新到 js 数据中
+
+## 03 简介-MVVM
+
+#### 2.3 MVVM
+
+**MVVM** 是 vue 实现**数据驱动视图**和**双向数据绑定**的核心原理。MVVM 指的是 **Model，View 和 ViewModel**，它把每个 HTML 页面都拆分成了这三个部分，如图所示：
+
+![vue2-2.3](.\image\vue2-2.3.png)
+
+在 MVVM 概念中：
+
+- **Model** 标时当前页面渲染时所依赖的数据源。
+- **View** 表示当前页面所渲染的 DOM 结构
+- **ViewModel** 表示 Vue 的实例，它是 MVVM 的核心
+
+#### 2.4 MVVM 的工作原理
+
+**ViewModel 作为 MVVM 的核心**，是它把当前页面的**数据源**（Model）和**页面结构**（View）连接在了一起
+
+![vue2-2.4](.\image\vue2-2.4.png)
+
+当**数据源发生变化**时，会被 ViewModel 监听到， VM 会根据最新的数据源**自动更新**页面的结构
+
+当**表单元素的值发生变化**时，也会被 VM 监听到， VM 会把变化过后的最新的值**自动同步**到 Model 数据源中
+
+##### 解释
+
+> 数据驱动视图和双向数据绑定的底层原理是 MVVM （Model 数据源，View 视图，ViewModel 就是 Vue 的实例）
+
+### 3. vue 的版本
+
+当前，vue 共有3个大版本，其中：
+
+**2.x 版本的 vue 是目前企业级项目开发中的主流版本**
+
+3.x 版本的 vue 于2020-09-19发布，生态还不完善，尚未在企业级项目开发中普及和推广
+
+1.x 版本的 vue 几乎被淘汰，不在建议学习和使用
+
+总结：
+
+**3.x 版本的 vue 是未来企业级项目开发的趋势；**
+
+2.x 版本的 vue 在未来（1~2年内）会被逐渐淘汰；
+
+## 04 vue 基础用法-初步使用 vue
+
+### 1. 基本使用步骤
+
+- 导入 vue.js 的script 脚本文件
+- 在页面中声明一个将要被 vue 所控制的 DOM 区域
+- 创建 vm 实例对象（vue 实例对象）
+
+```
+<!-- 2. 在页面中声明一个将要被 vue 所控制的 DOM 区域 -->
+  <div id="app">
+    {{username}}
+  </div>
+  <!-- 1. 导入 vue.js 的 script 脚本文件 -->
+  <script src="js/vue.js"></script>
+  <script>
+    // 3. 创建 vm 实例对象（vue 实例对象）
+    const vm = new Vue({
+      el: "#app",  // 3.1 创建 vm 实例要控制页面的哪个区域
+      data () {  // 3.2 指定 Model 数据源
+        return {
+          username: 'zs'
+        }
+      },
+    }); 
+  </script>
+```
+
+### 2. 基本代码于 MVVM 的对应关系
+
+![vue2-5.2](.\image\vue2-4.2.png)
+
+## 05 vue 基础用法-体验 vue 调试工具和数据驱动视图
+
+### 1. 安装 vue-devtools 调试工具
+
+vue 官方提供的 vue-devtools 调试工具，能够方便开发者对 vue 项目进行调试与开发
+
+- **Chrome 浏览器**在线安装 vue-devtools :
+  - https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd
+- **FireFox 浏览器**在线安装 vue-devtools :
+  - https://addons.mozilla,org/zh-CN/firefox/addon/vue-js-devtools/
+
+### 2. 配置 Chrome 浏览器中的 vue-devtools
+
+![vue2-5.2](.\image\vue2-5.2.png)
+
+### 3. 使用 vue-devtools 调试 vue 页面
+
+## 06 vue 基础用法-内容渲染指令
+
+### 1. 指令的概念
+
+**指令 （Directives）**是 vue 为开发者提供的**模板语法**，用于**辅助开发者染页面的基本结构**。
+
+vue 中的指令**按照不同的用途**可以分为如下 6 大类：
+
+- **内容渲染**指令
+- **属性绑定**指令
+- **事件绑定**指令
+- **双向绑定**指令
+- **条件渲染**指令
+- **列表渲染**指令
+
+注意：指令是 vue 开发中最基础，最常用，最简单的知识点。
+
+#### 1.1内容染指令
+
+**内容渲染指令**用来**辅助开发者渲染 DOM 元素的文本内容**。常用的内容渲染指令有如下3个：
+
+- v-text
+- {{}}
+- v-html
+
+##### v-text 指令
+
+用法实例：
+
+```
+<div id="app">
+    <!-- 把 username 对应的值，渲染到第一个 p 标签中 -->
+    <p v-text="username"></p>
+    <!-- 把 gender 对应的值，渲染到第二个 p 标签中 -->
+    <!-- 注意：第二个 p 标签中，默认的文本”性别“会被 gender 的值覆盖掉 -->
+    <p v-text="gender">性别</p>
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data () {
+        return {
+          username: '张三',
+          gender: 'male'
+        }
+      },
+    }); 
+  </script>
+```
+
+注意：v-text 指令会**覆盖元素内默认的值**。
+
+##### {{}} 语法
+
+vue 提供的**{{}}**语法，专门用来解决 v-text 会覆盖默认文本内容的问题。这种{{}}语法的专业名称是**插值表达**
+**式**（英文名为: **Mustache**）。
+
+```
+<!-- 使用 {{}} 插值表达式,将对应的值渲染到元素的内容节点中 -->
+<!-- 同时保留元素自身的默认值 -->
+<p>姓名：{{username}}</p>
+<p>性别：{{gender}}</p>
+```
+
+注意：相对于 v-text 指令来说，**插值表达式在开发中更常用一些**！因此它不会覆盖元素中默认的文本内容
+
+##### v-html
+
+**v-text** 指令和**插值表达式**只能渲染**纯文本内容**。如果要**包含 HTML 标签的字符串**渲染为页面的 HTML 元素，则需要用到 v-html 这个指令：
+
+```
+<!-- 假设 data 中定义了名为 info 的数据，数据的值为包含 HTML 标签的字符串 -->
+<p V-html="info"></p>
+```
+
+注意：可以把带有标签的字符串，渲染成真正的 HTML 内容
+
+## 07 vue 基础用法-el属性的使用注意点
+
+## 08 vue 基础用法-属性绑定指令
+
+#### 1.2 属性绑定指令
+
+如果需要为**元素的属性**动态绑定**属性值**，则需要用到 **v-bind** 属性绑定指令。用法示例如下：
+
+```
+<div id="app">
+    <input type="text" v-bind:placeholder="tips">
+    <hr>
+    <img :src="photo" alt="">
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data () {
+        return {
+          tips: '请输入用户名',
+          photo: 'https://fanyi-cdn.cdn.bcebos.com/static/translation/img/header/logo_e835568.png'
+        }
+      },
+    }); 
+  </script>
+```
+
+## 09 vue 基础用法-在插值和属性绑定中编写 js 语句
+
+**使用 JavaScript 表达式**
+
+在 vue 提供的模板渲染中，除了支持**绑定简单的数据值**之外，还支持 **JavaScript 表达式的运算**，例如：
+
+```
+<div id="app">
+    <p>{{number+1}}</p>
+    <p>{{ok ? 'YES' : 'NO'}}</p>
+    <p>{{message.split('').reverse().join('')}}</p>
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data () {
+        return {
+          number: 1,
+          ok: true,
+          message: 'Hello World'
+        }
+      },
+    }); 
+  </script>
+```
+
+## 10 vue 事件绑定-了解 v-on 指令的基本用法
+
+#### 1.3 事件绑定指令
+
+vue 提供了 v-on 事件绑定指令，用来辅助程序员为 DOM 元素绑定事件监听。语法格式如下：
+
+```
+<div id="app">
+    <p>{{count}}</p>
+    <!-- 语法格式为 v-on:事件名称=”事件处理函数名称“ -->
+    <button v-on:click="addCount">+1</button>
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data () {
+        return {
+          count: 0
+        }
+      },
+      methods: {
+        addCount () {
+          this.count++
+        }
+      },
+    }); 
+  </script>
+```
+
+注意：原生 DOM 对象有 `onclick，oninput，onkeyup` 等原生事件，替换为 vue 的事件绑定形式后，分别为：`v-on:click，v-on:input，v-on:keyup`
+
+## 11 vue 事件绑定-处理函数的简写形式
+
+## 12 vue 事件绑定-通过 this 访问数据源中的数据
+
+## 13 vue 事件绑定-绑定事件并传参
+
+```
+<div id="app">
+    <p>{{count}}</p>
+    <button v-on:click="addCount(2)">+1</button>
+    <button v-on:click="sub">-1</button>
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data () {
+        return {
+          count: 0
+        }
+      },
+      methods: {
+        addCount (n) {
+          this.count += n
+        },
+        sub () {
+          this.count -= 1
+        }
+      },
+    }); 
+  </script>
+```
+
+## 14 vue 事件绑定-v-on 指令的简写形式
+
+```
+<!-- v-on: 指令可以被简写为 @ -->
+<button @click="addCount(2)">+1</button>
+<button @click="sub">-1</button>
+```
+
+## 15 vue 事件绑定-$event

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>02.内容渲染指令</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 把 username 对应的值，渲染到第一个 p 标签中 -->
+    <p v-text="username"></p>
+    <!-- 把 gender 对应的值，渲染到第二个 p 标签中 -->
+    <!-- 注意：第二个 p 标签中，默认的文本”性别“会被 gender 的值覆盖掉 -->
+    <p v-text="gender">性别</p>
+    <hr>
+
+    <!-- 使用 {{}} 插值表达式,将对应的值渲染到元素的内容节点中 -->
+    <!-- 同时保留元素自身的默认值 -->
+    <p>姓名：{{username}}</p>
+    <p>性别：{{gender}}</p>
+    <hr>
+
+    <p V-text="info"></p>
+    <p>{{info}}</p>
+    <hr>
+
+    <!-- 假设 data 中定义了名为 info 的数据，数据的值为包含 HTML 标签的字符串 -->
+    <p V-html="info"></p>
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data () {
+        return {
+          username: '张三',
+          gender: 'male',
+          info: '<h4 style="color:red">Hello World</h4>'
+        }
+      },
+    }); 
+  </script>
+</body>
+
+</html>
