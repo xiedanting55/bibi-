@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>05.事件对象$event</title>
+</head>
+
+<body>
+  <div id="app">
+    <p>count 的值是：{{count}}</p>
+    <!-- 如果 count 是偶数，则按钮背景变成红色，否则，取消背景颜色 -->
+    <!-- vue 提供了内置变量，名字叫做 $event ，它就是原生 DOM 的事件对象 -->
+    <button @click="addCount(1, $event)">+N</button>
+  </div>
+
+  <script src="js/vue.js"></script>
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data () {
+        return {
+          count: 0
+        }
+      },
+      methods: {
+        addCount (n, e) {
+          this.count += n
+          if (this.count % 2 == 0) {  //偶数
+            e.target.style.background = 'red'
+          } else {  //奇数
+            e.target.style.background = ''
+          }
+        }
+      },
+    }); 
+  </script>
+</body>
+
+</html>

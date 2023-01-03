@@ -1,3 +1,5 @@
+
+
 bibi 地址：https://www.bilibili.com/video/BV1zq4y1p7ga/
 
 # webpack
@@ -968,7 +970,7 @@ vue 提供的**{{}}**语法，专门用来解决 v-text 会覆盖默认文本内
 
 #### 1.3 事件绑定指令
 
-vue 提供了 v-on 事件绑定指令，用来辅助程序员为 DOM 元素绑定事件监听。语法格式如下：
+vue 提供了 **v-on** 事件绑定指令，用来辅助程序员为 DOM 元素绑定事件监听。语法格式如下：
 
 ```
 <div id="app">
@@ -993,6 +995,8 @@ vue 提供了 v-on 事件绑定指令，用来辅助程序员为 DOM 元素绑�
     }); 
   </script>
 ```
+
+ **v-on**：简介是 @
 
 注意：原生 DOM 对象有 `onclick，oninput，onkeyup` 等原生事件，替换为 vue 的事件绑定形式后，分别为：`v-on:click，v-on:input，v-on:keyup`
 
@@ -1038,3 +1042,159 @@ vue 提供了 v-on 事件绑定指令，用来辅助程序员为 DOM 元素绑�
 ```
 
 ## 15 vue 事件绑定-$event
+
+$event 的应用场景：如果默认的事件对象 e 被覆盖了，则可以手动传递一个 $event
+
+语法格式如下：
+
+```
+<div id="app">
+    <p>count 的值是：{{count}}</p>
+    <!-- 如果 count 是偶数，则按钮背景变成红色，否则，取消背景颜色 -->
+    <!-- vue 提供了内置变量，名字叫做 $event ，它就是原生 DOM 的事件对象 -->
+    <button @click="addCount(1, $event)">+N</button>
+  </div>
+
+  <script src="js/vue.js"></script>
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data () {
+        return {
+          count: 0
+        }
+      },
+      methods: {
+        addCount (n, e) {
+          this.count += n
+          if (this.count % 2 == 0) {  //偶数
+            e.target.style.background = 'red'
+          } else {  //奇数
+            e.target.style.background = ''
+          }
+        }
+      },
+    }); 
+  </script>
+```
+
+## 16 vue 事件绑定-事件修饰符
+
+**事件修饰符**
+
+在事件处理函数中调用 **event.preventDefault()** 或 **event.stopPropagation()** 是非常常见的需求。因此， vue 提供了**事件修饰符**的概念，来辅助程序员更方便的**对事件的触发进行控制**。常见的5个事件修饰符如下：
+
+| 事件修饰符   | 说明                                                         |
+| ------------ | ------------------------------------------------------------ |
+| **.prevent** | **阻止默认行为**（例如：阻止 a 连接的跳转，阻止表单的提交等） |
+| **.stop**    | **阻止事件冒泡**                                             |
+| .capture     | 以捕获模式触发当前的事件处理函数                             |
+| .once        | 绑定的事件只触发1次                                          |
+| .self        | 只有在 event.target 是当前原生自身时触发事件处理函数         |
+
+语法格式如下：
+
+```
+<div id="app">
+    <a href="http://www.baidu.com" @click.prevent="show">跳转到百度首页</a>
+
+    <hr>
+    <!-- 事件冒泡 -->
+    <div style="height:150px; background-color: orange; padding-left: 200px; line-height: 150px;" @click="divHandle">
+      <button @click.stop="btnHandle">按钮</button>
+    </div>
+  </div>
+
+  <script src="js/vue.js"></script>
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data () {
+        return {
+          count: 0
+        }
+      },
+      methods: {
+        show (e) {
+          // e.preventDefault()
+          console.log('点击了 a 链接')
+        },
+        divHandle () {
+          console.log('divHandle')
+        },
+        btnHandle () {
+          console.log('btnHandle')
+        }
+      },
+    }); 
+  </script>
+```
+
+## 18 vue 事件绑定-按键修饰符
+
+**按键修饰符**
+
+在监听**键盘事件**时，我们经常需要**判断详细的按键**。此时，可以为**键盘相关**的事件添加**按键修饰符**，例如：
+
+```
+<!-- 只有在 `key` 是 `Enter` 时调用 `vm.submit` -->
+<input @keyup.enter="submit" >
+
+<!-- 只有在 `key` 是 `Esc` 时调用 `vm.clearInput` -->
+<input @keyup.esc="clearInput" >
+```
+
+## 19 vue 双向绑定-了解 v-model 指令的用法
+
+#### 1.4 双向绑定指令
+
+vue 提供了 **v-model 双向数据绑定**指令，用来辅助开发者在**不操作 DOM** 的前提下，**快速获取表单的数据**
+
+```
+<div id="app">
+    <p>用户名是：{{username}}</p>
+    <input type="text" v-model="username">
+    <hr>
+    <p>选中的省份是：{{province}}</p>
+    <select v-model="province">
+      <option value="">请选择</option>
+      <option value="1">北京</option>
+      <option value="2">河北</option>
+      <option value="3">黑龙江</option>
+    </select>
+  </div>
+
+  <script src="js/vue.js"></script>
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data () {
+        return {
+          username: '',
+          province: ''
+        }
+      }
+    }); 
+  </script>
+```
+
+## 20 vue 双向绑定-v-model 的修饰符
+
+**v-model 指令的修饰符**
+
+为了方便对用户输入的内容进行处理，vue 为 v-model 指令提供了3个修饰符，分别是：
+
+| 修饰符  | 作用                              | 示例                           |
+| ------- | --------------------------------- | ------------------------------ |
+| .number | 自动将用户的输入值转为数值类型    | <input v-model.number="age" /> |
+| .trim   | 自动将过滤用户输入的首尾空白字符  | <input v-model.trim="msg" />   |
+| .lazy   | 在 "change" 是而非 "input" 时更新 | <input v-model.lazy="msg" />   |
+
+示例用法如下：
+
+```
+<input type="text" v-model.number="n1" />
+<input type="text" v-model.number="n2" />
+<span>{{n1+n2}}</span>
+```
+

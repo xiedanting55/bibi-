@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>07.按键修饰符</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 只有在 `key` 是 `Enter` 时调用 `vm.submit` -->
+    <input @keyup.enter="submit">
+
+    <!-- 只有在 `key` 是 `Esc` 时调用 `vm.clearInput` -->
+    <input @keyup.esc="clearInput">
+  </div>
+
+  <script src="js/vue.js"></script>
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      methods: {
+        submit (e) {
+          console.log(e.target.value)
+        },
+        clearInput (e) {
+          e.target.value = ""
+        },
+      },
+    }); 
+  </script>
+</body>
+
+</html>
