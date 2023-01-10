@@ -1198,3 +1198,146 @@ vue 提供了 **v-model 双向数据绑定**指令，用来辅助开发者在**�
 <span>{{n1+n2}}</span>
 ```
 
+## 21 vue 条件渲染-了解 v-if 和 v-show 的区别
+
+#### 1.5 条件渲染指令
+
+**条件渲染指令**用来辅助开发者**按需控制 DOM 的显示与隐藏**。条件渲染指令有如下两个，分别是：
+
+- v-if
+- v-show
+
+示例用法如下：
+
+```
+<p v-if="networkState === 200">请求成功 --- 被 v-if 控制</p>
+<p v-show="networkState === 200">请求成功 --- 被 v-if 控制</p>
+```
+
+## 22 vue 条件渲染-v-if 配套的指令
+
+v-else 
+
+v-if 可以单独使用，或配合 v-else 指令一起使用：
+
+```
+<div v-if="Math.random() > 0.5">
+      随机数大于 0.5
+    </div>
+    <div v-else>
+      随机数小于等于 0.5
+    </div>
+```
+
+注意：v-else 指令**必须配合** v-if 指令一起使用，否则它将不会被识别！
+
+v-else-if
+
+v-else-if 指令，顾名思义，充当 v-if 的 ”else-if 块“，可以连续使用：
+
+```
+<div v-if="type === 'A'">优秀</div>
+<div v-else-if="type === 'B'">良好</div>
+<div v-else-if="type === 'C'">一般</div>
+<div v-else>差</div>
+```
+
+注意：v-else-if 指令**必须配合** v-if 指令一起使用，否则它将不会被识别！
+
+## 23 vue 列表渲染-了解 v-for 的基本用法
+
+#### 1.6 列表渲染指令
+
+vue 提供了 **v-for** 列表渲染指令，用来辅助开发者**基于一个数组来循环渲染一个列表结构**。v-for 指令需要使用 **item in items** 形式的特殊语法，其中：
+
+- items 是**待循环的数组**
+- item 是**被循环的每一项**
+
+```
+data: {
+	return {
+		list: [
+			{id: 1, name: 'zs'},
+			{id: 2, name: 'ls'}
+		]
+	}
+}
+
+<ul>
+	<li v-for="item in list">姓名是： {{item.name}}</li>
+</ul>
+```
+
+v-for 中的索引
+
+v-for 指令还支持一个**可选的**第二个参数，即当前项的索引。语法格式为(item,index) in items，示例代码如下：
+
+```
+data: {
+	return {
+		list: [
+			{id: 1, name: 'zs'},
+			{id: 2, name: 'ls'}
+		]
+	}
+}
+
+<ul>
+	<li v-for="(item,index) in list">姓名是： {{item.name}}</li>
+</ul>
+```
+
+注意：v-for 指令中的 **item 项**和 **index 索引**都是**形参**，可以根据需要进行**重命名**。例如（user, i）in userList
+
+## 24 vue 列表渲染-强调 v-for 循环中 key 值的注意点
+
+**key  的注意事项**
+
+- key 的值只能是**字符串**或**数字**类型
+- key 的值**必须具有唯一性**（即：key 的值不能重复）
+- 建议把**数据项 id 属性**的值作为 key 的值（因为 id 属性的值具有唯一性）
+- 使用 **index 的值**当作 key 的值**没有任何意义**（因为 index 的值不具有唯一性）
+- 建议使用 v-for 指令时**一定要指定 key 的值**（既提升性能，又防止列表状态紊乱）
+
+## 25 案例-演示案例需求
+
+## 26 案例-循环渲染表格行的数据
+
+## 27 案例-练习中遇到的小问题
+
+## 28 案例-动态生成 checkbox 的 id 属性值
+
+## 29 案例-实现删除品牌的功能
+
+## 30 案例-判断用户填写的内容是否为空
+
+## 31 案例-实现添加的功能
+
+## 32 总结
+
+- 能够知道 vue 的**基本使用步骤**
+  - 导入 vue.js 文件
+  - new Vue() 构造函数，得到 vm 实例对象
+  - 声明 el 的 data 数据节点
+  - MVVM 的对应关系 
+
+- 掌握 vue 中常见**指令**的基本操作
+  - 插值表达式，v-bind，v-on，v-if和v-else
+  - v-for和:key，v-model
+
+- 掌握 vue 中**过滤器**的基本用法
+  - 全局过滤器 Vue.filter('过滤器名称', function)
+  - 私有过滤器 filters 节点
+
+## 33 过滤器-过滤器的基本用法
+
+### 2. 过滤器
+
+过滤器（Filters）是 vue 为开发者提供的功能，常用于文本的格式化。过滤器可以用在两个地方：插值表达式和 v-bind 属性绑定
+
+过滤器应该被添加在 JavaScript 表达式的尾部，由”管道符“进行调用，示例代码如下：
+
+```
+<td>{{item.createTime | timeFilter}}</td>
+```
+
